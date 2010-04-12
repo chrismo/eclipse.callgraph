@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?artifactRepository class='org.eclipse.equinox.internal.p2.artifact.repository.simple.SimpleArtifactRepository' version='1.0.0'?>
+<repository name='file:/C:/dev/my_eclipse/org.clabs.eclipse.site/ - artifacts' type='org.eclipse.equinox.p2.artifact.repository.simpleRepository' version='1.0.0'>
+  <properties size='2'>
+    <property name='p2.compressed' value='false'/>
+    <property name='p2.timestamp' value='1252042355508'/>
+  </properties>
+  <mappings size='3'>
+    <rule filter='(&amp; (classifier=osgi.bundle))' output='${repoUrl}/plugins/${id}_${version}.jar'/>
+    <rule filter='(&amp; (classifier=binary))' output='${repoUrl}/binary/${id}_${version}'/>
+    <rule filter='(&amp; (classifier=org.eclipse.update.feature))' output='${repoUrl}/features/${id}_${version}.jar'/>
+  </mappings>
+  <artifacts size='17'>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='0.9.5'>
+      <properties size='2'>
+        <property name='artifact.size' value='1283'/>
+        <property name='download.size' value='1283'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='0.9.5'>
+      <properties size='3'>
+        <property name='artifact.size' value='20767'/>
+        <property name='download.size' value='20767'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='0.9.7'>
+      <properties size='2'>
+        <property name='artifact.size' value='1412'/>
+        <property name='download.size' value='1412'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='20761'/>
+        <property name='download.size' value='20761'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='1.0.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='1695'/>
+        <property name='download.size' value='1695'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='0.9.4'>
+      <properties size='2'>
+        <property name='artifact.size' value='1284'/>
+        <property name='download.size' value='1284'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='0.9.3'>
+      <properties size='3'>
+        <property name='artifact.size' value='16477'/>
+        <property name='download.size' value='16477'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='0.9.2'>
+      <properties size='3'>
+        <property name='artifact.size' value='15468'/>
+        <property name='download.size' value='15468'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='0.9.4'>
+      <properties size='3'>
+        <property name='artifact.size' value='21320'/>
+        <property name='download.size' value='21320'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='1.0.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='1716'/>
+        <property name='download.size' value='1716'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='0.9.6'>
+      <properties size='3'>
+        <property name='artifact.size' value='20867'/>
+        <property name='download.size' value='20867'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='0.9.6'>
+      <properties size='2'>
+        <property name='artifact.size' value='1284'/>
+        <property name='download.size' value='1284'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='0.9.7'>
+      <properties size='3'>
+        <property name='artifact.size' value='19421'/>
+        <property name='download.size' value='19421'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='osgi.bundle' id='org.clabs.eclipse.plugin.callgraph' version='1.0.0'>
+      <properties size='3'>
+        <property name='artifact.size' value='20771'/>
+        <property name='download.size' value='20771'/>
+        <property name='download.contentType' value='application/zip'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='0.9.3'>
+      <properties size='2'>
+        <property name='artifact.size' value='1283'/>
+        <property name='download.size' value='1283'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='0.9.2'>
+      <properties size='2'>
+        <property name='artifact.size' value='1191'/>
+        <property name='download.size' value='1191'/>
+      </properties>
+    </artifact>
+    <artifact classifier='org.eclipse.update.feature' id='org.clabs.eclipse.feature.callgraph' version='1.0.0'>
+      <properties size='2'>
+        <property name='artifact.size' value='1692'/>
+        <property name='download.size' value='1692'/>
+      </properties>
+    </artifact>
+  </artifacts>
+</repository>

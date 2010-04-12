@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry kind="lib" path="C:/dev/eclipse-3.1/eclipse/plugins/org.junit_3.8.1/junit.jar"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry sourcepath="C:/dev/easymock1.2_RC2_Java1.3/src.zip" kind="lib" path="C:/dev/easymock1.2_RC2_Java1.3/easymock.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

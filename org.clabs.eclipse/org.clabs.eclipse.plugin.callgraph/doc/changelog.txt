@@ -1,0 +1,106 @@
+0.9.8
+-----
+- Bug fix on the following (Adam Kiezun):
+    // Java 5.0
+	class I{
+	  Set foo(){ //open callee hierarchy
+	     return new HashSet(){
+	        public boolean add(Object o) {
+	          return super.add(o);
+	        }
+	     };
+	  }
+	} 
+	Actually appears to be a call hierarchy bug (do a caller
+	tree from HashSet() and the constructor method appears), 
+	but I added code to support IType in the tree view now, 
+	too.
+
+
+0.9.7 - 7/27/05
+-----
+Big update, mostly on the inside, though this plug-in now works back 
+on 3.0 as well.
+
+- Finding the Call Hierarchy Tree is better, not dependent on node text
+  but on the instanceof the root item's data.
+- Now using IMember instances from TreeItems to get text for graph nodes 
+  instead of parsing the TreeItem's text itself, which wasn't very stable.
+  The following nodes wouldn't work previously but are fixed now:
+  - generics (seems to work now -- need Adam Kiezun to try this again)
+  - anonymous inner classes (maybe less than ideal output, though)
+  - field initialization
+
+
+0.9.6 - 7/22/05
+-----
+- Multi-select remove siblings removes all selected ones but first -- should retain
+  all selected ones -- fixed.
+- Isolate Path To Node disabled for multi-selection (but has an odd quirk in that
+  it won't disable right away, but does after first attempt, or somesuch. Posted
+  query to eclipse.platform newsgroup, see what comes of that -- if the menu's
+  not disabled, Eclipse still kicks in the selectionChanged at that point, disables
+  the action and then informs the user with a dialog box).
+- went through a made everything public, except for some fields, and put getters
+  on them. It's frustrating trying to tie-in my plug-in to stuff I can't get at,
+  but I'd rather try to be as open as possible for any other plug-ins, etc.
+- update site .html has link to blogki home page
+
+
+=============================
+Version 0.9.5 - July 21, 2005
+=============================
+- Core remove node code is now done properly, no resource leaks, no
+  side-effect bugs.
+- Fix Graph in callee mode
+- "Remove Node(s)" text changed to "Remove Node"
+
+=============================
+Version 0.9.4 - July 20, 2005
+=============================
+- Added some rough hacks** for manipulating nodes in the tree:
+  - Remove selected node(s)
+  - Remove sibling nodes
+  - Isolate path to node
+
+  ** leaking resources probably
+  
+- New graphing feature
+  - Merge with previous graph
+  
+- Misc code clean-up
+
+=============================
+Version 0.9.3 - July 13, 2005
+=============================
+- If nothing is selected, graph the whole tree. New unit test for this.
+- plugin.xml fix -- moving files to different CVS module seemed to have 
+  blanked the plugin.xml -- so it wouldn't hook into anything
+- old unit tests back in place, compiling ... two failing because of a Device
+  problem trying to create an Image. May just drop the tests.
+
+- feature has an update URL in it now, so hopefully should be able to just
+  scan for updates from now on to get them.
+
+=============================
+Version 0.9.2 - July 12, 2005
+=============================
+- Superficial code changes, feature and update site tweaks.
+
+=============================
+Version 0.9.1 - July 11, 2005
+=============================
+- This version now works from the tree view again, like the original
+  hack, so no weird issues with expanded or unloaded nodes.
+- Fix if any of the Trees cycled through do not have any items.
+  
+============================
+Version 0.9.0 - July 8, 2005
+============================
+- Initial release.
+- Basic graphing option is working, but crufty. 
+- Does not respond to nodes that get collapsed, will still render them. 
+- Does not render graph when selecting a previously unexpanded node.
+- Could have other problems. Mostly this release is about getting
+  an end-to-end connection, focusing on plug-in building and deployment
+  issues.

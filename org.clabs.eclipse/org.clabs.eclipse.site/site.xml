@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <description url="http://clabs.org/eclipse">
+      cLabs.org Eclipse Update Site
+   </description>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_0.9.2.jar" id="org.clabs.eclipse.feature.callgraph" version="0.9.2">
+      <category name="Call Graph (Eclipse 3.0-3.2)"/>
+   </feature>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_0.9.3.jar" id="org.clabs.eclipse.feature.callgraph" version="0.9.3" patch="true">
+      <category name="Call Graph (Eclipse 3.0-3.2)"/>
+   </feature>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_0.9.4.jar" id="org.clabs.eclipse.feature.callgraph" version="0.9.4" patch="true">
+      <category name="Call Graph (Eclipse 3.0-3.2)"/>
+   </feature>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_0.9.5.jar" id="org.clabs.eclipse.feature.callgraph" version="0.9.5" patch="true">
+      <category name="Call Graph (Eclipse 3.0-3.2)"/>
+   </feature>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_0.9.6.jar" id="org.clabs.eclipse.feature.callgraph" version="0.9.6" patch="true">
+      <category name="Call Graph (Eclipse 3.0-3.2)"/>
+   </feature>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_0.9.7.jar" id="org.clabs.eclipse.feature.callgraph" version="0.9.7" patch="true">
+      <category name="Call Graph (Eclipse 3.0-3.2)"/>
+   </feature>
+   <feature url="features/org.clabs.eclipse.feature.callgraph_1.0.0.jar" id="org.clabs.eclipse.feature.callgraph" version="1.0.0">
+      <category name="Call Graph (Eclipse 3.4)"/>
+   </feature>
+   <category-def name="Call Graph (Eclipse 3.0-3.2)" label="Call Graph (Eclipse 3.0-3.2)"/>
+   <category-def name="Call Graph (Eclipse 3.4)" label="Call Graph (Eclipse 3.4)"/>
+</site>

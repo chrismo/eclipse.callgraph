@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin
+   id="org.clabs.eclipse.plugin.callgraph"
+   name="Callgraph Plug-in"
+   version="1.0.0"
+   provider-name="cLabs.org"
+   class="org.clabs.eclipse.plugin.callgraph.CallgraphPlugin">
+
+   <runtime>
+      <library name="callgraph.jar">
+         <export name="*"/>
+      </library>
+   </runtime>
+
+   <requires>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.jdt.core"/>
+      <import plugin="org.eclipse.jdt.ui"/>
+   </requires>
+
+  <extension
+        point="org.eclipse.ui.popupMenus">
+     <viewerContribution
+           id="org.clabs.eclipse.plugin.callgraph.viewerContribution"
+           targetID="org.eclipse.jdt.callhierarchy.view">
+        <action
+              class="org.clabs.eclipse.plugin.callgraph.ShowCallgraphViewActionDelegate"
+              id="org.clabs.eclipse.plugin.callgraph.ShowCallgraph"
+              label="Graph"
+              menubarPath="org.eclipse.jdt.callhierarchy.view"/>
+        <action
+              class="org.clabs.eclipse.plugin.callgraph.MergeAndGraphViewActionDelegate"
+              id="org.clabs.eclipse.plugin.callgraph.MergeAndGraph"
+              label="Merge With Previous Graph"
+              menubarPath="org.eclipse.jdt.callhierarchy.view"/>
+        <action
+              class="org.clabs.eclipse.plugin.callgraph.RemoveNodeViewActionDelegate"
+              id="org.clabs.eclipse.plugin.callgraph.RemoveCurrentNode"
+              label="Remove Node"
+              menubarPath="org.eclipse.jdt.callhierarchy.view"/>
+        <action
+              class="org.clabs.eclipse.plugin.callgraph.RemoveSiblingNodesViewActionDelegate"
+              id="org.clabs.eclipse.plugin.callgraph.RemoveSiblings"
+              label="Remove Sibling Nodes"
+              menubarPath="org.eclipse.jdt.callhierarchy.view"/>
+        <action
+              class="org.clabs.eclipse.plugin.callgraph.IsolatePathViewActionDelegate"
+              id="org.clabs.eclipse.plugin.callgraph.IsolatePath"
+              label="Isolate Path To Node"
+              menubarPath="org.eclipse.jdt.callhierarchy.view"/>
+     </viewerContribution>
+  </extension> 
+
+</plugin>

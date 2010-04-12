@@ -1,0 +1,41 @@
+0.9.8
+-----
+(release? with just bug fix?)	
+- Copy digraph source menu option (on graph window or on CH context or both?)  
+	Thinking a tool bar/menu bar stuff on the main window. Copy source, save
+	source, save image options, maybe.
+	
+
+1.0 Release
+-----------
+?
+
+Future Releases
+---------------
+- LR/TB option toggle
+
+- Unit tests up-to-date and running
+- Close off/delete unused code
+- Better error handling/UI
+
+- Icon for graph window?
+
+- Configurable dot.exe location (path variable?)
+- Configurable graphing options? Font, etc?
+- Interactive graph?
+  [can get either the -Tdot or -Tgraph(?) to give you coordinates, that
+   could allow interactive without internalizing the rendering]
+
+- move menu up to the show group or whatever it's named
+  [hmm, tried .../group.show and .../group.focus, but always
+   failed as an invalid menu path. Double-checked the example
+   in the menu path stuffs, and it looks like I found the right
+   strings to use for all of this ... not sure why it's failing?
+   Maybe because some of this stuff is internal and not public?]
+
+-----------
+3.0 Support
+-----------
+7/27/05
+  java.lang.NoSuchMethodError: org.eclipse.swt.widgets.Tree.getItem(I)Lorg/eclipse/swt/widgets/TreeItem;
+  

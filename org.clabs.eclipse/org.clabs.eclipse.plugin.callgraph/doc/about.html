@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+</head>
+<body>
+<h1>cLabs Call Hierarchy Graph Eclipse JDT Hack</h1>
+This hack of the org.eclipse.jdt.ui_3.0.0 plug-in adds two menu items
+to the Call Hierarchy popup menu that will render the current call
+hierarchy tree using <a href="http://www.graphviz.org/">GraphViz</a>
+dot. <br>
+<br>
+Hopefully, I'll not need to resort to hacking the jdt.ui plug-in for
+much longer if my lack of Eclipse know-how can be brought up to speed
+quickly on how to do this as a pure, separate plug-in.<br>
+<h3>Download</h3>
+Go grab the current .zip in <a href="http://clabs.org/jdt">http://clabs.org/jdt</a>.
+Complete source code is included in an embedded .zip file, contributed
+source by cLabs is covered under the same licensing stuff as Eclipse.<br>
+<h3>Installation</h3>
+Close Eclipse, unzip the file in your eclipse folder, overwriting the
+current org.eclipse.jdt.ui_3.0.0 plug-in. <br>
+<br>
+Install GraphViz dot on your system and make sure the dot executable is
+in your system path, such that Eclipse can get to it. <br>
+<h3>Usage</h3>
+Get a Call Hierarchy going, right-click on the root node you want
+graphed and choose "Show Graph". If you just want the dot source copied
+to your clipboard, choose that menu item (that menu item will probably
+be moved to the Show Graph shell window in the near future).<br>
+<span style="font-weight: bold;"></span>
+<h3><span style="font-weight: bold;">Change Log</span></h3>
+jdt.clabs.3.0.0.5.zip - July 15, 2004<br>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Background color of Show Graph shell window matches the image
+background color now, and window sizes to match the image (limited by
+the current display's bounds).</li>
+  <li>Whoops, remmed out a key line in copying source to the clipboard
+during a refactoring that kept it from actually doing something
+resembling anything -- fixed.<br>
+  </li>
+</ul>
+<br>
+</div>
+jdt.clabs.3.0.0.4.zip - July 14, 2004<br>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Show Graph Shell now has scroll bars allowing proper viewing of
+large images. Thanks to Christian Hauser on the eclipse.platform.swt
+newsgroup for the reference to <a
+ href="http://dev.eclipse.org/viewcvs/index.cgi/%7Echeckout%7E/platform-swt-home/snippits/snippet48.html">this
+snippet</a> for a great how-to.<br>
+  </li>
+</ul>
+</div>
+<br>
+jdt.clabs.3.0.0.3.zip - July 13, 2004<br>
+<div style="margin-left: 40px;">
+<ul>
+  <li>First release with Show Graph menu item and new Shell window.
+Images too big for the window simply ran off the edge, no scrolling.<br>
+  </li>
+</ul>
+</div>
+jdt.clabs.3.0.0.2.zip - July 12, 2004<br>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Follow up, cleaned up stuff in copy clipboard stuffs.<br>
+  </li>
+</ul>
+</div>
+jdt.clabs.3.0.0.1.zip - July 11, 2004<br>
+<div style="margin-left: 40px;">
+<ul>
+  <li>Original release, with Copy Graph Source to Clipboard menu item
+enabled.<br>
+  </li>
+</ul>
+</div>
+</body>
+</html>

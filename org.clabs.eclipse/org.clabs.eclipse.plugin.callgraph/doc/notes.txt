@@ -1,0 +1,276 @@
+- Use the PDE Error Log view if there are any problems.
+  (on 3.0 no such view? log file is in [workspace]/.metadata/.log)
+
+- Nice article on update sites, plug-ins, features, etc.
+  http://www.eclipse.org/articles/Article-Update/keeping-up-to-date.html
+
+- plugin.xml, right-click, PDE Tools -> Create Ant Build File 
+  (except that with features and update site, no need for Ant
+   file, it'll auto build everything for ya)
+
+================
+Visibility Hacks
+================
+Getting protected access by putting my classes in their package names doesn't work in Eclipse:
+
+I missed that part... the trick you tried (declaring a class in the same
+package) does not work at runtime, because your class is loaded by a
+different classloader (every plug-in has one) and so it is actually in a
+different package (though they share the same name).
+-- http://dev.eclipse.org/newslists/news.eclipse.platform/msg27239.html
+
+Got the same problem with the reflection private hack
+
+Here's a more general explanation of the situation:
+
+    In Java, classes that are members of the same package have certain 
+    privileges that other classes do not have--they can access all the classes 
+    of the package that have the default protection (that is, the classes that 
+    are neither public, private, nor protected). Additionally, they can access 
+    any instance variable of classes in the package if the instance variable 
+    also has the default protection. As we discussed in Chapter 2, "Java 
+    Language Security", the ability to reference only those items to which a 
+    class has access is a key part of the security restrictions Java places on a 
+    program to ensure memory and API integrity.
+
+    So let's assume that no class loader based package separation exists, and 
+    that we rely on Sun Microsystems to name its classes com.sun.Car and so on. 
+    Everything would proceed reasonably, until we surf to www.EvilSite.org, 
+    where someone has placed a class called com.sun.DoSomethingEvil. Without the 
+    namespace separation introduced by the class loader, this class would 
+    suddenly have access to all the default protected classes and default 
+    protected variables of every class that had been downloaded from Sun. Worse, 
+    that site could supply a class called com.sun.Car with a much different 
+    implementation than Sun's--such that when the user (metaphorically, of 
+    course) applied the car's brakes, the new implementation sped up instead. 
+    Clearly, this is not a desirable situation. 
+	-- http://www.unix.org.ua/orelly/java-ent/security/ch03_01.htm
+
+==============
+Error Handling
+==============
+Personally, my pattern is to use WorkbenchPlugin.log(...) for every
+exception, and to open an ErrorDialog for those warranting informing the
+user.  Unfortunately, WorkbenchPlugin is internal code, and so not fit for
+general consumption.  However, its implementation of the log methods is
+very straightforward; they could be copied to your own plug-in.
+
+The general logging API is Plugin.getLog() and ILog() ... both provided by
+org.eclipse.core.runtime.
+
+cheers,
+d. [Douglas Pollock]
+
+===============================
+Eclipse 3.0 Support for plug-in
+===============================
+Unpack option must be checked in feature.xml, plug-in page.
+See "Shipping Your Plug-in As A Single JAR" in Eclipse help.
+
+========================
+Scan for Updates support
+========================
+To make sure the feature can be scanned for updates:
+
+Make sure the Update Site Url is filled in on the General Information section
+of the Overview page of the feature.xml editor. (<url><update.../></url> tags
+in the .xml itself).
+
+=======================================================
+Notes On Plugging In to the Call Hierarchy Context Menu
+=======================================================
+
+(some bread crumbs in case I get lost again on something in the future.
+
+Bug I opened: https://bugs.eclipse.org/bugs/show_bug.cgi?id=70054
+
+I'm currently hacking on the jdt.ui package to add a simple GraphViz dot view of
+the current call hierarchy tree. I'd like to be able to do this with a pure,
+separate plug-in, but the extension points don't exist right now (3.0) to do it
+(AFAIK).
+
+At the moment, my hack simply adds another menu item to the right-click menu
+under Copy to Clipboard that says "Show Graph" or somesuch.
+
+I've got an early version here http://clabs.org/jdt. Whatever .zip in there is
+the latest. It's a modified version of the 3.0 release code of
+org.eclipse.jdt.ui_3.0.0. You can use it by overwriting the existing
+org.eclipse.jdt.ui_3.0.0 directory in your Eclipse dir.
+
+Requires a separate install of GraphViz dot, and dot must be on the system path.
+
+
+------- Additional Comment #1 From Dirk Baeumer 2004-07-14 19:33 [reply] -------
+
+What exactly are zou asking for ?
+
+The workbench provides mechanisms to contribute actions to a context menu of a
+view part without the need of hacking it. This can be simply done using menu
+contributions in XML.
+
+
+------- Additional Comment #2 From Chris Morris 2004-07-14 22:50 [reply] -------
+
+Sorry for vague request, I simply asked about this on the JDT list and was
+forwarded here, I'm pretty green on the Eclipse API.
+
+If I can plug-in my own context menu item and have access to the view part (I
+need to be able to access the call hier tree items), then I guess I don't need
+the extension points. If you could point me in the right direction, I'd
+appreciate it.
+
+
+------- Additional Comment #3 From Dirk Baeumer 2004-07-15 04:28 [reply] -------
+
+Look for the two extension points view and object contribution (Help -> Help
+Contents). However, we will not make the call hierarchy view API. So you have
+still to access internal API, but you don't need to hack it.
+
+
+
+Jesper Kamstrup Linnet wrote:
+
+> You might want to take a look at the
+org.eclipse.jdt.internal.ui.callhierarchy.CopyCallHierarchyAction (which copies
+a text representation of the hierarchy to the clipboard.) The nodes in the tree
+(subclasses of MethodWrapper) can be obtained with the TreeItem.getData()
+method. > > Alternatively you might want to look at the CallHierarchyVisitor
+interface (which can be used from the MethodWrapper.accept(...) method.
+
+
+I'm familiar with CopyCallHierarchyAction, it's what I based my current class on
+(GraphCallHierarchyAction) -- all I need is the plug-in stuffs to hook into
+CallHierarchyViewPart without actually modifying its code to add my popupMenu.
+My current hack simply modifies the source in CallHierarchyViewPart, but
+apparently, I should be able to plug-in to it externally, but I don't know how
+yet.
+
+> You should be aware though (as Dirk also wrote later in the bug report) that
+none of the Call Hierarchy code is public API (and probably will not be opened
+up). I would not expect it to change that much, so I wouldn't be so afraid to
+use it - but that's your decision :-)
+
+
+Oh, that's no problem. I'm primarily using it on a current gig to help myself
+out, and my hacking approach is fine for that, but I would like to know how to
+do it as a pure plug-in, as that might make it more accessible to others.
+
+--
+Chris
+http://clabs.org
+
+
+~~~
+
+So ... CallHierarchyViewPart got hacked originally. Added lines to
+CallHierarchyMessages.properties and CallHierarchyViewPart.java to add in the
+menu items and the actions to perform. Two new Action classes:
+
+CopyCallHierarchyGraphSourceAction extends org.eclipse.jface.action.Action
+GraphCallHierarchyAction extends org.eclipse.jface.action.Action
+
+"The workbench provides mechanisms to contribute actions to a context menu of a
+view part without the need of hacking it. This can be simply done using menu
+contributions in XML." ... menu contributions in XML means what? What XML?
+Where? plug-in XML, I assume? This instead of changing
+CallHierarchyMessages.properties.
+
+"Look for the two extension points view and object contribution (Help -> Help
+Contents). However, we will not make the call hierarchy view API. So you have
+still to access internal API, but you don't need to hack it."
+
+   plugin.xml has Extension Element Details and a menubarPath. Is that the
+   direction?
+
+      Platform Plug-in Developer Guide:Menu and Toolbar Paths
+
+      "A complete menu path is simply "menu name/group name."  Most menu names
+      for the workbench are defined in IWorkbenchActionConstants. (Resource-
+      related menu names are defined in IIDEActionConstants.) If we look for the
+      name of the help menu in this class, we'll find that the fully qualified
+      path name for our help action is "help/helpEnd." "
+
+      ... so how do I find the name of the call hierarchy context menu? Tried
+      looking around, but haven't found anything so far.
+
+      CallHierarchyViewer.initContextMenu is a promising start, but ...
+      nothing.
+
+      IContextMenuConstants ... but, nothing obvious in there. What's the name
+      of the context menu? Maybe I only need the group name "group.show"?
+
+      The call to initContextMenu passes in a popupId of ID_CALL_HIERARCHY =
+      "org.eclipse.jdt.callhierarchy.view" ... so maybe that's the name of the
+      menu? Will try org.eclipse.jdt.callhierarchy.view/group.show for the
+      menubarPath, in the Extension Element Details.
+
+      The context menu has some Edit (Cut/Copy/Paste) actions, some other
+      actions that are not explicitly defined in
+      CallHierarchyViewPart.fillCallHierarchyViewerContextMenu, so that's
+      coming from somewhere, maybe that'd give a clue as to the name.
+
+      Look - Console has this error when running my plug-in in another Eclipse
+      environ: "Invalid Menu Extension (Path is invalid):
+      org.clabs.eclipse.plugin.callgraph.graphAction"
+
+      Made menubarPath blank again, and Console error goes away. Let's try
+      navigate/group.show and see what happens then. ... "invalid" in console.
+
+      Try just "group.show"... no "invalid" this time, but nothing showing
+      anywhere that I can see.
+
+      ...
+
+      String menuId= "org.eclipse.jdt.callhierarchy.view"
+
+      ...
+
+      Ok - a minor breakthrough, clicked on the Open extension point description
+      for org.eclipse.ui.viewActions on the Extensions page. It says, "This
+      extension point is used to add actions to the pulldown menu and toolbar
+      for views registered by other plug-ins." Re-ran the plug-in as-is, which
+      has this:
+
+            <extension point="org.eclipse.ui.viewActions">
+              <viewContribution
+                targetID="org.eclipse.jdt.callhierarchy.view"
+                id="org.clabs.eclipse.plugin.callgraph.viewContribution">
+                <action
+                   class="org.clabs.eclipse.plugin.callgraph.ViewActionDelegate"
+                   id="org.clabs.eclipse.plugin.callgraph.graphAction"
+                   label="Graph Plugin"
+                   menubarPath="org.eclipse.jdt.callhierarchy.view"
+                   tooltip="honky!"/>
+              </viewContribution>
+            </extension>
+
+       I kept looking for the new menu item in the context menu of the view, but
+       instead it was going to the bottom of the pulldown menu. I clicked it and
+       out popped my MessageDialog with fViewPart.getClass().getName(), which is
+       org.eclipse.jdt.internal.ui.callhierarchy.CallHierarchyViewPart. Woop!
+
+       So, fell into the Extension Point Wizard, by clicking the Add... button
+       on the Extensions page, picked Popup Menu, and out came two new
+       extensions, one being org.eclipse.ui.popupMenus. The description there
+       reads, "This extension point is used to add new actions to context menus
+       owned by other plug-ins. Action contributions may be made against a
+       specific object type (objectContribution) or against a specific context
+       menu of a view or editor part (viewerContribution)."
+
+       This looks promising.
+
+       Huzzah! Finally. I was so close the whole time. Try this on:
+
+       <extension point="org.eclipse.ui.popupMenus">
+          <viewerContribution
+                id="org.clabs.eclipse.plugin.callgraph.viewerContribution1"
+                targetID="org.eclipse.jdt.callhierarchy.view">
+             <action
+                   class="org.clabs.eclipse.plugin.callgraph.ViewActionDelegate"
+                   id="org.clabs.eclipse.plugin.callgraph.action1"
+                   label="Show Callgraph"
+                   menubarPath="org.eclipse.jdt.callhierarchy.view"/>
+          </viewerContribution>
+       </extension>
+
+
